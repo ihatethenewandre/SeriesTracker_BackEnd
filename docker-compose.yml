@@ -20,7 +20,7 @@ services:
       - POSTGRES_DB=series_db
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./tables.sql:/docker-entrypoint-initdb.d/tables.sql
     ports:
       - "5432:5432"
 volumes:
