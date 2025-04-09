@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  title: Series Tracker API
+  version: "1.0"
+  description: API para la gestión de series de TV o Streaming
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/series:
+    get:
+      summary: Obtener todas las series
+      responses:
+        '200':
+          description: Lista de series
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Series'
+    post:
+      summary: Crear una nueva serie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Series'
+      responses:
+        '201':
+          description: Serie creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+  /api/series/{id}:
+    get:
+      summary: Obtener una serie por ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Detalle de la serie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+    put:
+      summary: Actualizar una serie existente
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Series'
+      responses:
+        '200':
+          description: Serie actualizada exitosamente
+    delete:
+      summary: Eliminar una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Serie eliminada exitosamente
+  /api/series/{id}/status:
+    patch:
+      summary: Actualizar el estado de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Estado actualizado exitosamente
+  /api/series/{id}/episode:
+    patch:
+      summary: Incrementar el episodio actual
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Episodio actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+  /api/series/{id}/upvote:
+    patch:
+      summary: Aumentar la puntuación de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Puntuación incrementada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+  /api/series/{id}/downvote:
+    patch:
+      summary: Disminuir la puntuación de una serie
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Puntuación decrementada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Series'
+components:
+  schemas:
+    Series:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        current_episode:
+          type: integer
+        total_episodes:
+          type: integer
+        status:
+          type: string
+        score:
+          type: integer
