@@ -1,0 +1,34 @@
+Series Tracker API – Instrucciones de Uso
+
+Endpoints Disponibles:
+1. GET /api/series
+   - Devuelve la lista completa de series.
+
+2. GET /api/series/:id
+   - Devuelve la serie cuyo ID se especifica.
+
+3. POST /api/series
+   - Crea una nueva serie.
+   - Body (JSON): { "title": "Título", "description": "Descripción", "current_episode": 0, "total_episodes": 10, "status": "viendo", "score": 0 }
+
+4. PUT /api/series/:id
+   - Actualiza todos los campos de una serie existente.
+   - Body (JSON): Se esperan todos los campos definidos en el modelo.
+
+5. DELETE /api/series/:id
+   - Elimina la serie especificada por su ID.
+
+6. PATCH /api/series/:id/status
+   - Actualiza el estado (status) de la serie.
+   - Body (JSON): { "status": "nuevo_estado" }
+
+7. PATCH /api/series/:id/episode
+   - Incrementa en 1 el contador de episodios actuales.
+
+8. PATCH /api/series/:id/upvote
+   - Aumenta la puntuación (score) de la serie en 1.
+
+9. PATCH /api/series/:id/downvote
+   - Disminuye la puntuación (score) de la serie en 1.
+
+Base URL: http://localhost:8080
